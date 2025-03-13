@@ -8,7 +8,7 @@ const CreatePaperRosh = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:5000/get-questions")
+    fetch("https://question-paper-generater.onrender.com/get-questions")
       .then((res) => res.json())
       .then((data) => {
         console.log("✅ API Response:", data);  // Debugging
@@ -28,7 +28,7 @@ const CreatePaperRosh = () => {
     setDeleting(id);
   
     try {
-      const response = await fetch(`http://localhost:5000/delete-paper/${id}`, {
+      const response = await fetch(`https://question-paper-generater.onrender.com/delete-paper/${id}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
       });

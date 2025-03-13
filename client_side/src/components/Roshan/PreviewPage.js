@@ -88,7 +88,7 @@ const PreviewPage = () => {
   const handleSaveToBackend = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch("http://localhost:5000/save-questions", {
+      const response = await fetch("https://question-paper-generater.onrender.com/save-questions", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
