@@ -13,7 +13,7 @@ app.use(cors({
   origin: [
     "http://localhost:3000", 
     "http://127.0.0.1:3000",
-    "https://gilded-sherbet-4ee762.netlify.app" // Add your Netlify domain
+    "https://client-side-8kte.onrender.com" // Add your render domain
   ],
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
