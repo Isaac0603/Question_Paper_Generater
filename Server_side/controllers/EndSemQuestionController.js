@@ -27,29 +27,30 @@ const shuffleQuestions = (array) => {
 
 class EndQuestionController {
   // Get questions for a specific subject and part
-  static async getQuestionsBySubjectAndPart(req, res) {
-    try {
-      console.log('Received query:', req.query);
+ static async getQuestionsBySubjectAndPart(req, res) {
+  try {
+    console.log('Received query:', req.query);
 
-      const { 
-        subjectCode, 
-        part,
-        bloomLevel,
-        unit
-      } = req.query;
+    const { 
+      subjectCode, 
+      part,
+      bloomLevel,
+      level, // Add this line to accept "level" parameter
+      unit
+    } = req.query;
 
-      // Validate input
-      if (!subjectCode) {
-        console.log('No subject code provided');
-        return res.status(400).json({ 
-          message: 'Subject code is required' 
-        });
-      }
+    // Validate input
+    if (!subjectCode) {
+      console.log('No subject code provided');
+      return res.status(400).json({ 
+        message: 'Subject code is required' 
+      });
+    }
 
-      // Build query
-      const query = { 
-        subjectCode: subjectCode
-      };
+    // Build query
+    const query = { 
+      subjectCode: subjectCode
+    };
       
       // Add part filter if specified
       if (part) query.part = part;
