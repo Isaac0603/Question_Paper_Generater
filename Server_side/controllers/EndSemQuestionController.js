@@ -35,7 +35,7 @@ class EndQuestionController {
       subjectCode, 
       part,
       bloomLevel,
-      level, // Add this line to accept "level" parameter
+      level, // Added to accept "level" parameter
       unit
     } = req.query;
 
@@ -52,57 +52,63 @@ class EndQuestionController {
       subjectCode: subjectCode
     };
       
-      // Add part filter if specified
-      if (part) query.part = part;
+    // Add part filter if specified
+    if (part) query.part = part;
 
-      // Optional filters
-      if (bloomLevel) query.bloomLevel = bloomLevel;
-      if (unit) query.unit = unit;
-
-      console.log('Database query:', query);
-
-      // Fetch questions
-      const questions = await EndQuestion.find(query).lean();
-      
-      console.log('Found questions:', questions.length);
-
-      // Process questions to add imageUrl field for client-side rendering
-      const processedQuestions = questions.map(q => {
-        const result = { ...q };
-        
-        // Add imageUrl for front-end if question has an image
-        if (q.image?.data || q.imageUrl) {
-          result.hasImage = true;
-          
-          // If it's a URL, use it directly
-          if (q.imageUrl) {
-            result.imageUrl = q.imageUrl;
-          } else if (q.image?.data) {
-            // For Buffer images, provide the API endpoint
-            result.imageUrl = `/api/endsem-questions/questions/${q._id}/image`;
-          }
-        } else {
-          result.hasImage = false;
-        }
-        
-        return result;
-      });
-
-      res.status(200).json({
-        total: processedQuestions.length,
-        subject: {
-          code: subjectCode
-        },
-        questions: processedQuestions
-      });
-    } catch (error) {
-      console.error('Error fetching questions:', error);
-      res.status(500).json({
-        message: 'Error fetching questions',
-        error: error.message
-      });
+    // Optional filters - handle both bloomLevel and level
+    if (bloomLevel) {
+      query.bloomLevel = bloomLevel;
+    } else if (level) {
+      // Use level parameter as bloomLevel if provided
+      query.bloomLevel = level;
     }
+
+    if (unit) query.unit = unit;
+
+    console.log('Database query:', query);
+
+    // Fetch questions
+    const questions = await EndQuestion.find(query).lean();
+    
+    console.log('Found questions:', questions.length);
+
+    // Process questions to add imageUrl field for client-side rendering
+    const processedQuestions = questions.map(q => {
+      const result = { ...q };
+      
+      // Add imageUrl for front-end if question has an image
+      if (q.image?.data || q.imageUrl) {
+        result.hasImage = true;
+        
+        // If it's a URL, use it directly
+        if (q.imageUrl) {
+          result.imageUrl = q.imageUrl;
+        } else if (q.image?.data) {
+          // For Buffer images, provide the API endpoint
+          result.imageUrl = `/api/endsem-questions/questions/${q._id}/image`;
+        }
+      } else {
+        result.hasImage = false;
+      }
+      
+      return result;
+    });
+
+    res.status(200).json({
+      total: processedQuestions.length,
+      subject: {
+        code: subjectCode
+      },
+      questions: processedQuestions
+    });
+  } catch (error) {
+    console.error('Error fetching questions:', error);
+    res.status(500).json({
+      message: 'Error fetching questions',
+      error: error.message
+    });
   }
+}
 
   // Create a new question
   static async createQuestion(req, res) {
