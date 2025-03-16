@@ -137,7 +137,7 @@ const FinalPaperPage = () => {
       try {
         console.log("🔄 Fetching questions from backend...");
         // Use only the general endpoint that you have available
-        const endpoint = "http://localhost:5000/api/questions-isaac/all";
+        const endpoint = "https://qp-server.onrender.com/api/questions-isaac/all";
 
         const response = await fetch(endpoint);
 

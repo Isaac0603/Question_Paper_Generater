@@ -604,7 +604,7 @@ const CreatePapers = () => {
       };
       
       // Send the paper data to the server with or without token
-      const response = await axios.post('http://localhost:5000/api/endpapers', paperData, {
+      const response = await axios.post('https://qp-server.onrender.com/api/endpapers', paperData, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`

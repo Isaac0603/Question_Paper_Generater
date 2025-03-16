@@ -63,7 +63,7 @@ const QuestionEntryPage = () => {
         try {
             console.log(`🔄 Fetching unit ID for Unit ${currentUnit}...`, subjectId);
 
-            const response = await fetch("http://localhost:5000/api/units");
+            const response = await fetch("https://qp-server.onrender.com/api/units");
 
             if (!response.ok) {
                 throw new Error(`❌ Failed to fetch units: ${response.statusText}`);
@@ -258,7 +258,7 @@ const QuestionEntryPage = () => {
         return;
       }
 
-      const response = await fetch("http://localhost:5000/api/questions-isaac", {
+      const response = await fetch("https://qp-server.onrender.com/api/questions-isaac", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -491,7 +491,7 @@ const QuestionEntryPage = () => {
       // If question has an ID, delete it from the backend
       if (questionId && token) {
         try {
-          const response = await fetch(`http://localhost:5000/api/questions-isaac/${questionId}`, {
+          const response = await fetch(`https://qp-server.onrender.com/api/questions-isaac/${questionId}`, {
             method: "DELETE",
             headers: {
               "Authorization": `Bearer ${token}`,

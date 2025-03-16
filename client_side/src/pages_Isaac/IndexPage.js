@@ -32,7 +32,7 @@ const IndexPage = () => {
   
       console.log("📡 Sending request to create subject:", normalizedSubject);
   
-      const response = await fetch("http://localhost:5000/api/subjects", {
+      const response = await fetch("https://qp-server.onrender.com/api/subjects", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(normalizedSubject),

@@ -18,7 +18,7 @@ const PreviewPage = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [savedPaperId, setSavedPaperId] = useState(id);
-  const [apiUrl, setApiUrl] = useState("http://localhost:5000/api/papers/save");
+  const [apiUrl, setApiUrl] = useState("https://qp-server.onrender.com/api/papers/save");
   
   useEffect(() => {
     // Log initialized data for debugging
@@ -49,9 +49,9 @@ const PreviewPage = () => {
   // Helper function to try all possible endpoints
   const tryAllEndpoints = async (paperData) => {
     const possibleEndpoints = [
-      "http://localhost:5000/api/papers/save", 
-      "http://localhost:5000/save",
-      "http://localhost:5000/api/questions/save"
+      "https://qp-server.onrender.com/api/papers/save", 
+      "https://qp-server.onrender.com/save",
+      "https://qp-server.onrender.com/api/questions/save"
     ];
     
     for (const endpoint of possibleEndpoints) {
@@ -179,7 +179,7 @@ const PreviewPage = () => {
       console.log("Sending data to backend:", JSON.stringify(paperData, null, 2));
       
       // Use the endpoint that matches what we see in server.js
-      const response = await fetch("http://localhost:5000/api/papers/save", {
+      const response = await fetch("https://qp-server.onrender.com/api/papers/save", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(paperData)

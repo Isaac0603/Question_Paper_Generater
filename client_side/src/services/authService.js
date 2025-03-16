@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // ✅ Use process.env for CRA (Create React App)
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000/api";
+const API_URL = process.env.REACT_APP_API_URL || "https://qp-server.onrender.com/api";
 const AUTH_API_URL = `${API_URL}/auth`;
 
 console.log("🔍 Backend API URL (AuthService):", AUTH_API_URL); // Debugging

@@ -50,7 +50,7 @@ export const AuthProvider = ({ children }) => {
         return;
       }
 
-      const response = await axios.get("http://localhost:5000/api/auth/verify", {
+      const response = await axios.get("https://qp-server.onrender.com/api/auth/verify", {
         headers: { Authorization: `Bearer ${token}` },
       });
 

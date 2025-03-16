@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:5000/api";
+const API_BASE_URL = process.env.REACT_APP_API_URL || "https://qp-server.onrender.com/api";
 const USER_API_URL = `${API_BASE_URL}/users`;
 
 // ✅ Ensure Token is Retrieved from Storage

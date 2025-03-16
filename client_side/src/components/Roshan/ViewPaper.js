@@ -19,7 +19,7 @@ const ViewPaper = () => {
     
     console.log("📌 Fetching paper with ID:", id);
   
-    fetch(`http://localhost:5000/get-questions/${id}`)
+    fetch(`https://qp-server.onrender.com/get-questions/${id}`)
       .then((res) => res.json())
       .then((data) => {
         console.log("✅ API Response:", data);
@@ -50,7 +50,7 @@ const ViewPaper = () => {
     }
   
     try {
-      const res = await fetch("http://localhost:5000/api/questions/randomize", {
+      const res = await fetch("https://qp-server.onrender.com/api/questions/randomize", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ subject: paper.subject }),
@@ -301,7 +301,7 @@ const ViewPaper = () => {
     setDeleting(true);
 
     try {
-      const response = await fetch(`http://localhost:5000/delete-paper/${id}`, {
+      const response = await fetch(`https://qp-server.onrender.com/delete-paper/${id}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
       });
@@ -324,7 +324,7 @@ const ViewPaper = () => {
   
   const handleApproval = async () => {
     try {
-      await fetch("http://localhost:5000/api/questions/send-for-approval", { method: "POST" });
+      await fetch("https://qp-server.onrender.com/api/questions/send-for-approval", { method: "POST" });
       alert("Paper sent for approval!");
     } catch (error) {
       console.error("❌ Error sending for approval:", error);

@@ -8,7 +8,7 @@ const CreatePaper = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:5000/get-questions")
+    fetch("https://qp-server.onrender.com/get-questions")
       .then((res) => res.json())
       .then((data) => {
         console.log("✅ API Response:", data);  // Debugging
@@ -28,7 +28,7 @@ const CreatePaper = () => {
     setDeleting(id);
   
     try {
-      const response = await fetch(`http://localhost:5000/delete-paper/${id}`, {
+      const response = await fetch(`https://qp-server.onrender.com/delete-paper/${id}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
       });
