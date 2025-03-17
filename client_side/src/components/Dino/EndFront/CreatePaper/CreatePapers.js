@@ -461,7 +461,7 @@ const CreatePapers = () => {
         : getBloomLevelNumber(bloomLevel);
       
       // Fetch a replacement question with the same unit and bloom level
-      const response = await axios.get('/api/endsem-questions', {
+      const response = await axios.get('https://qp-server.onrender.com/api/endsem-questions', {
         params: {
           subjectCode: examDetails.subjectCode,
           part: part,
