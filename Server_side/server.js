@@ -334,6 +334,27 @@ app.use("/api/subjects", subjectRoutes);
 app.use("/api/units", unitRoutes);
 app.use("/api/randomize", randomizationRoutes);
 app.use("/api/endsem-questions", endSemQuestionRoutes);
+app.get("/api/endsem-questions*", (req, res) => {
+  console.log('Debug - Catch-all route hit:', req.originalUrl);
+  console.log('Debug - Query params:', req.query);
+  
+  // Extract level from URL if present
+  const urlMatch = req.originalUrl.match(/level=([^&]+)/);
+  const level = urlMatch ? urlMatch[1] : null;
+  const subjectCode = req.query.subjectCode || 'CA3222';
+  
+  if (level) {
+    // Redirect to proper format
+    const redirectUrl = `/api/endsem-questions?subjectCode=${subjectCode}&level=${level}`;
+    console.log('Debug - Redirecting to:', redirectUrl);
+    return res.redirect(redirectUrl);
+  }
+  
+  res.status(400).json({
+    message: 'Invalid API call format',
+    correctFormat: '/api/endsem-questions?subjectCode=XXX&level=YYY'
+  });
+});
 app.use("/api/endpapers", endPapersRoutes);
 app.use("/api/openpapers", openPapersRoutes);
 app.use("/api/midquestions", midquestions);
