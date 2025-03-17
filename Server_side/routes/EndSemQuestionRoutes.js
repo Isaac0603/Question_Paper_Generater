@@ -3,18 +3,10 @@ const router = express.Router();
 const EndSemQuestionController = require('../controllers/EndSemQuestionController');
 const Upload = require('../middlewares/MulterUpload');
 
-// GET questions by subject and part - add error handling wrapper
+// GET questions by subject and part
 router.get(
   '/', 
-  async (req, res, next) => {
-    console.log('DEBUG: Route handler called with query:', req.query);
-    try {
-      await EndSemQuestionController.getQuestionsBySubjectAndPart(req, res);
-    } catch (err) {
-      console.error('DEBUG: Error in route handler:', err);
-      next(err);
-    }
-  }
+  EndSemQuestionController.getQuestionsBySubjectAndPart
 );
 
 // CREATE a new question (with optional file upload)
