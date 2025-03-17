@@ -27,38 +27,50 @@ const shuffleQuestions = (array) => {
 
 class EndQuestionController {
   // Get questions for a specific subject and part
-  static async getQuestionsBySubjectAndPart(req, res) {
-    try {
-      console.log('Received query:', req.query);
+// In EndSemQuestionController.js
+static async getQuestionsBySubjectAndPart(req, res) {
+  try {
+    console.log('DEBUG - Request URL:', req.originalUrl);
+    console.log('DEBUG - Query params:', req.query);
 
-      const { 
-        subjectCode, 
-        part,
-        bloomLevel,
-        unit
-      } = req.query;
+    // Try to extract level from URL if not in query params
+    let level = req.query.level;
+    if (!level && req.originalUrl.includes('level=')) {
+      const match = req.originalUrl.match(/level=([^&]+)/);
+      if (match) level = match[1];
+      console.log('DEBUG - Extracted level from URL:', level);
+    }
 
-      // Validate input
-      if (!subjectCode) {
-        console.log('No subject code provided');
-        return res.status(400).json({ 
-          message: 'Subject code is required' 
-        });
-      }
+    const { 
+      subjectCode = 'CA3222', // Default value
+      part,
+      bloomLevel
+    } = req.query;
+    
+    const unit = req.query.unit;
 
-      // Build query
-      const query = { 
-        subjectCode: subjectCode
-      };
+    console.log('DEBUG - Parsed params:', { subjectCode, part, bloomLevel, level, unit });
+
+    // Build query with defaults
+    const query = { 
+      subjectCode: subjectCode
+    };
       
-      // Add part filter if specified
-      if (part) query.part = part;
+    // Add part filter if specified
+    if (part) query.part = part;
 
-      // Optional filters
-      if (bloomLevel) query.bloomLevel = bloomLevel;
-      if (unit) query.unit = unit;
+    // Use either bloomLevel or level for the query
+    if (bloomLevel) {
+      query.bloomLevel = bloomLevel;
+    } else if (level) {
+      query.bloomLevel = level;
+    }
 
-      console.log('Database query:', query);
+    if (unit) query.unit = unit;
+
+    console.log('DEBUG - Final database query:', query);
+
+    // Rest of the function as it was...
 
       // Fetch questions
       const questions = await EndQuestion.find(query).lean();
